@@ -1,54 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<title>Brady's Chess Bonanza</title>   <!-- or “Play Chess” in success.html -->
-<style>
-body {
-  font-family: Arial, sans-serif;
-  font-color: #FFFFFF;
-  text-align: center;
-  padding: 40px;
-  background: url('back.png') no-repeat center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-}
+  <meta charset="UTF-8">
+  <title>Play Chess</title>
 
-/* existing rules … */
-#payButton { padding: 12px 24px; font-size: 18px; cursor: pointer; } /* index.html */
-#board     { width: 400px; margin: 20px auto; }                       /* success.html */
-</style>
-  
+  <!-- Required CSS for Chessboard.js -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/0.3.0/css/chessboard.min.css" />
+
+  <style>
+    body  { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    #board { width: 400px; margin: 20px auto; }
+  </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Enjoy your game!</h2>
+  <h2>Enjoy your game!</h2>
+  <div id="board"></div>
 
- <!-- Chessboard container -->
-<div id="board"></div>
+  <!-- Dependencies (all load with 200 OK) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/0.3.0/chessboard.min.js"></script>
 
-<!-- Chessboard libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/0.3.0/chessboard.min.js" crossorigin="anonymous"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css" />
-
-  <!-- Initialize AFTER the libraries and container are loaded -->
+  <!-- Initialize AFTER everything is loaded -->
   <script>
-  window.addEventListener('load', () => {
-    const game  = new Chess();
-    const board = ChessBoard('board', {
-      draggable: true,
-      position: 'start',
-      onDrop: (source, target) => {
-        const move = game.move({ from: source, to: target, promotion: 'q' });
-        return move ? undefined : 'snapback';
-      },
-      onSnapEnd: () => board.position(game.fen())
+    window.addEventListener('load', () => {
+      const game  = new Chess();
+      const board = ChessBoard('board', {
+        draggable: true,
+        position: 'start',
+        onDrop: (source, target) => {
+          const move = game.move({ from: source, to: target, promotion: 'q' });
+          return move ? undefined : 'snapback';
+        },
+        onSnapEnd: () => board.position(game.fen())
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
