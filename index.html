@@ -19,30 +19,28 @@ body {
 </style>
   </head>
 <body>
-
   <h1>Play a game now</h1>
-<!-- Container Supertab will replace with its pay button -->
-<div id="PAYGATE"></div>
 
-<script type="module">
-  import { Supertab } from "https://js.supertab.co/v3/supertab.js";
+  <!-- Supertab will replace this div with the pay button -->
+  <div id="PAYGATE"></div>
 
-  // Initialize Supertab client
-  const supertabClient = new Supertab({ clientId: "live_client_e1db4014-0ab3-4166-a7ba-18df5e16ee9e" });
+  <!-- Supertab script AFTER the container -->
+  <script type="module">
+    import { Supertab } from "https://js.supertab.co/v3/supertab.js";
 
-  // Create the purchase button
-  const { initialState, show } = await supertabClient.createPurchaseButton({
-    experienceId: "experience.b1b0c461-6680-45b0-89e2-7464e2198c51",
-    containerElement: document.getElementById("PAYGATE"),
-    onDone: ({ priorEntitlement, purchase }) => {
-      if (priorEntitlement) {
-        window.location.href = "success.html";        // Already entitled
-      } else if (purchase && purchase.status === "completed") {
-        window.location.href = "success.html";        // Payment complete
+    const supertabClient = new Supertab({
+      clientId: "live_client_e1db4014-0ab3-4166-a7ba-18df5e16ee9e"
+    });
+
+    supertabClient.createPurchaseButton({
+      experienceId: "experience.b1b0c461-6680-45b0-89e2-7464e2198c51",
+      containerElement: document.getElementById("PAYGATE"),
+      onDone: ({ priorEntitlement, purchase }) => {
+        if (priorEntitlement || (purchase && purchase.status === "completed")) {
+          window.location.href = "success.html";
+        }
       }
-    }
-  });
-</script>
-  <!-- After successful payment, Stripe will redirect to /success.html -->
+    });
+  </script>
 </body>
 </html>
