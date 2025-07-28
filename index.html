@@ -14,7 +14,7 @@ body {
 }
 
 /* existing rules … */
-#payButton { padding: 12px 24px; font-size: 18px; cursor: pointer; } /* index.html */
+#PAYGATE { padding: 12px 24px; font-size: 18px; cursor: pointer; } /* index.html */
 #board     { width: 400px; margin: 20px auto; }                       /* success.html */
 </style>
   </head>
@@ -22,7 +22,7 @@ body {
 
   <h1>Play a game now</h1>
 <!-- Container Supertab will replace with its pay button -->
-<div id="YOUR_ELEMENT_ID"></div>
+<div id="PAYGATE"></div>
 
 <script type="module">
   import { Supertab } from "https://js.supertab.co/v3/supertab.js";
@@ -33,7 +33,7 @@ body {
   // Create the purchase button
   const { initialState, show } = await supertabClient.createPurchaseButton({
     experienceId: "experience.b1b0c461-6680-45b0-89e2-7464e2198c51",
-    containerElement: document.getElementById("YOUR_ELEMENT_ID"),
+    containerElement: document.getElementById("PAYGATE"),
     onDone: ({ priorEntitlement, purchase }) => {
       if (priorEntitlement) {
         window.location.href = "success.html";        // Already entitled
