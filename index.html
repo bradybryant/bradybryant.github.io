@@ -21,33 +21,28 @@ body {
 <body>
 
   <h1>Play a game now</h1>
-  
-  <script type="module">
-    import { Supertab } from "https://js.supertab.co/v3/supertab.js";
+<!-- Container Supertab will replace with its pay button -->
+<div id="YOUR_ELEMENT_ID"></div>
 
-    // Initialize Supertab client
-    const supertabClient = new Supertab({ clientId: "live_client.e1db4014-b0a3-4166-a7ba-18df5e16ee9e" });
+<script type="module">
+  import { Supertab } from "https://js.supertab.co/v3/supertab.js";
 
-    // Create the purchase button
-     const { initialState, show } = await supertabClient.createPurchaseButton({
-        experienceId: "experience.bb10c461-6680-45b8-89ce-7464e2198c51",
-        containerElement: document.getElementById("YOUR_ELEMENT_ID"),
-        onDone: ({ priorEntitlement, purchase }) => {
-          if (priorEntitlement) {
-            // Insert your code to handle when user has prior entitlement
-            console.log("User has prior entitlement", priorEntitlement);
-          } else if (purchase && purchase.status === "completed") {
-            // Insert your code to handle when user purchases an offering
-            console.log("Purchase completed!", purchase);
-          } else {
-            // Insert your code to handle when user abandons the flow without purchase or prior entitlement
-            console.log("Purchase canceled!");
-          }
-        }
-      });
-  </script>
-  
+  // Initialize Supertab client
+  const supertabClient = new Supertab({ clientId: "live_client_e1db4014-0ab3-4166-a7ba-18df5e16ee9e" });
 
+  // Create the purchase button
+  const { initialState, show } = await supertabClient.createPurchaseButton({
+    experienceId: "experience.b1b0c461-6680-45b0-89e2-7464e2198c51",
+    containerElement: document.getElementById("YOUR_ELEMENT_ID"),
+    onDone: ({ priorEntitlement, purchase }) => {
+      if (priorEntitlement) {
+        window.location.href = "success.html";        // Already entitled
+      } else if (purchase && purchase.status === "completed") {
+        window.location.href = "success.html";        // Payment complete
+      }
+    }
+  });
+</script>
   <!-- After successful payment, Stripe will redirect to /success.html -->
 </body>
 </html>
