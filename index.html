@@ -26,14 +26,15 @@ body {
   <div id="PAYGATE"></div>
 
   <!-- Supertab script AFTER the container -->
-  <script type="module">
-    import { Supertab } from "https://js.supertab.co/v3/supertab.js";
+ <script type="module">
+  import { Supertab } from "https://js.supertab.co/v3/supertab.js";
 
+  (async () => {
     const supertabClient = new Supertab({
       clientId: "live_client_e1db4014-0ab3-4166-a7ba-18df5e16ee9e"
     });
 
-    supertabClient.createPurchaseButton({
+    await supertabClient.createPurchaseButton({
       experienceId: "experience.b1b0c461-6680-45b0-89e2-7464e2198c51",
       containerElement: document.getElementById("PAYGATE"),
       onDone: ({ priorEntitlement, purchase }) => {
@@ -42,6 +43,7 @@ body {
         }
       }
     });
-  </script>
+  })();
+</script>
 </body>
 </html>
