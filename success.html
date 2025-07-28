@@ -17,6 +17,40 @@ body {
 #payButton { padding: 12px 24px; font-size: 18px; cursor: pointer; } /* index.html */
 #board     { width: 400px; margin: 20px auto; }                       /* success.html */
 </style>
+
+    <script type="module">
+      import { Supertab } from "https://js.supertab.co/v3/supertab.js";
+
+      // Initialize Supertab client
+      const supertabClient = new Supertab({ clientId: "live_client.e1db4014-b0a3-4166-a7ba-18df5e16ee9e" });
+
+      // Create the paygate
+      const { initialState, show } = await supertabClient.createPaygate({
+        experienceId: "experience.e2b860b5-c217-4c78-ad28-137b637a7fbe"
+      });
+
+      // Check if the user has prior entitlement
+      if (initialState.priorEntitlement) {
+        // Insert your code to handle when user has prior entitlement when accessing the page
+        console.log("User has prior entitlement", initialState.priorEntitlement);
+      } else {
+        // Show the paygate
+        const { priorEntitlement, purchase, purchasedOffering } = await show();
+
+        if (priorEntitlement) {
+          // Insert your code to handle when user has prior entitlement
+          console.log("User has prior entitlement", priorEntitlement);
+        } else if (purchase && purchase.status === "completed") {
+          // Insert your code to handle when user purchases an offering
+          console.log("Purchase completed!", purchase);
+        } else {
+          // Insert your code to handle when user abandons the flow without purchase or prior entitlement
+          console.log("Purchase canceled!");
+          window.location.href = "https://bradybryant.github.io";
+        }
+      }
+    </script>
+  
 </head>
 <body>
   <h2 style="text-align:center;">Enjoy your game!</h2>
