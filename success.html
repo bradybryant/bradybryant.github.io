@@ -17,27 +17,6 @@ body {
 #payButton { padding: 12px 24px; font-size: 18px; cursor: pointer; } /* index.html */
 #board     { width: 400px; margin: 20px auto; }                       /* success.html */
 </style>
-
-   <!-- Chessboard container -->
-<div id="board"></div>
-
-<!-- Chessboard libraries -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/css/chessboard.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/js/chessboard.min.js"></script>
-
-<script>
-  const game  = new Chess();
-  const board = Chessboard('board', {
-    draggable: true,
-    position: 'start',
-    onDrop: (source, target) => {
-      const move = game.move({ from: source, to: target, promotion: 'q' });
-      return move ? undefined : 'snapback';
-    },
-    onSnapEnd: () => board.position(game.fen())
-  });
-</script>
   
 </head>
 <body>
