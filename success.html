@@ -37,18 +37,18 @@ body {
 
   <!-- Initialize AFTER the libraries and container are loaded -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const game  = new Chess();
-      const board = Chessboard('board', {
-        draggable: true,
-        position: 'start',
-        onDrop: (source, target) => {
-          const move = game.move({ from: source, to: target, promotion: 'q' });
-          return move ? undefined : 'snapback';
-        },
-        onSnapEnd: () => board.position(game.fen())
-      });
+  window.addEventListener('load', () => {
+    const game  = new Chess();
+    const board = Chessboard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: (source, target) => {
+        const move = game.move({ from: source, to: target, promotion: 'q' });
+        return move ? undefined : 'snapback';
+      },
+      onSnapEnd: () => board.position(game.fen())
     });
-  </script>
+  });
+</script>
 </body>
 </html>
